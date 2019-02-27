@@ -226,20 +226,3 @@ RUN set -x \
   && virtualenv -p python3.6 /opt/virtualenv/zapcli \
   && /opt/virtualenv/zapcli/bin/pip3.6 install zapcli==0.10.0 \
   && update-alternatives --install /usr/bin/zap-cli zap-cli /opt/virtualenv/zapcli/bin/zap-cli 9999
-
-# Dusty
-RUN set -x \
-  && mkdir -p /opt/virtualenv/dusty \
-  && virtualenv -p python3.6 /opt/virtualenv/dusty \
-  && /opt/virtualenv/dusty/bin/pip3.6 install git+https://github.com/reportportal/client-Python.git \
-  && /opt/virtualenv/dusty/bin/pip3.6 install git+https://github.com/carrier-io/dusty.git \
-  && /opt/virtualenv/dusty/bin/python3.6 -c 'import pkg_resources; print("\n".join((ep.name for ep in pkg_resources.iter_entry_points("console_scripts") if ep.module_name.startswith("dusty"))))' \
-  | bash -c 'while IFS='$\n' read -r line; do update-alternatives --install /usr/bin/$line $line /opt/virtualenv/dusty/bin/$line 9999; done'
-
-# Workspace
-WORKDIR /tmp
-RUN mkdir /tmp/reports
-ADD	supervisor.conf /etc/supervisor/conf.d/supervisor.conf
-ADD w3af_full_audit.w3af /tmp/w3af_full_audit.w3af
-COPY scan-config.yaml /tmp/scan-config.yaml
-ENTRYPOINT ["run"]
