@@ -1,0 +1,10 @@
+sast:
+  #reportportal:
+  #  rp_host:
+  #  rp_token:
+  #  rp_project_name:
+  #  rp_launch_name:
+  project_name: $project_name
+  environment: $environment
+  html_report: true
+  language: python
