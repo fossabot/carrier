@@ -100,11 +100,12 @@ RUN set -x \
   && git clone https://github.com/andresriancho/w3af.git \
   && cd w3af \
   && git reset --hard ${W3AF_REVISION} \
+  && sed 's|#!/usr/bin/env python|#!/opt/virtualenv/w3af/bin/python|g' -i w3af_console \
   && ./w3af_console; true \
   && sed 's/sudo //g' -i /tmp/w3af_dependency_install.sh \
   && sed 's/apt-get/apt-get -y/g' -i /tmp/w3af_dependency_install.sh \
   && sed 's|pip install|/opt/virtualenv/w3af/bin/pip install --upgrade|g' -i /tmp/w3af_dependency_install.sh \
   && /tmp/w3af_dependency_install.sh \
-  && sed 's|#!/usr/bin/env python|/opt/virtualenv/w3af/bin/python|g' -i w3af_console \
+  && rm -f /tmp/w3af_dependency_install.sh \
   && sed 's/dependency_check()/#dependency_check()/g' -i w3af_console \
   && update-alternatives --install /usr/bin/w3af_console w3af_console /opt/w3af/w3af_console 9999
