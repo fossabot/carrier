@@ -154,7 +154,7 @@ RUN set -x \
 # W3af
 RUN set -x \
   && mkdir -p /opt/virtualenv/w3af \
-  && virtualenv -p python2.7 /opt/virtualenv/w3af
+  && virtualenv -p python2.7 /opt/virtualenv/w3af \
   && cd /opt \
   && git clone https://github.com/andresriancho/w3af.git \
   && cd w3af \
