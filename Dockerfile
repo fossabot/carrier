@@ -22,7 +22,7 @@ RUN set -x \
   && /opt/virtualenv/dusty/bin/pip3.6 install git+https://github.com/reportportal/client-Python.git \
   && /opt/virtualenv/dusty/bin/pip3.6 install git+https://github.com/carrier-io/dusty.git \
   && /opt/virtualenv/dusty/bin/python3.6 -c 'import pkg_resources; print("\n".join((ep.name for ep in pkg_resources.iter_entry_points("console_scripts") if ep.module_name.startswith("dusty"))))' \
-  | bash -c 'while IFS='$\n' read -r line; do update-alternatives --install /usr/bin/$line $line /opt/virtualenv/dusty/bin/$line 9999; done'
+  | xargs -n 1 bash -c 'update-alternatives --install /usr/bin/$0 $0 /opt/virtualenv/dusty/bin/$0 9999'
 
 # Workspace
 WORKDIR /tmp
