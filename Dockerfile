@@ -27,7 +27,7 @@ RUN set -x \
 # Workspace
 WORKDIR /tmp
 RUN mkdir /tmp/reports
-ADD	supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 ADD w3af_full_audit.w3af /tmp/w3af_full_audit.w3af
 COPY scan-config.yaml /tmp/scan-config.yaml
 ENTRYPOINT ["run"]
