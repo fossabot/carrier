@@ -209,7 +209,8 @@ RUN set -x \
   && cd /opt \
   && mkdir /opt/zap \
   && wget -qO- https://github.com/zaproxy/zaproxy/releases/download/${ZAP_STABLE_VERSION}/ZAP_${ZAP_STABLE_VERSION}_Linux.tar.gz | tar xvz -C /opt/zap --strip-components=1 \
-  && chmod +x /opt/zap/zap.sh
+  && chmod +x /opt/zap/zap.sh \
+  && update-alternatives --install /opt/zap/zap-stable.jar zap-stable.jar /opt/zap/zap-${ZAP_STABLE_VERSION}.jar 9999
 
 # DAST: ZAP (weekly)
 RUN set -x \
@@ -218,7 +219,8 @@ RUN set -x \
   && unzip ZAP_WEEKLY_D-${ZAP_WEEKLY_VERSION}.zip \
   && rm -f ZAP_WEEKLY_D-${ZAP_WEEKLY_VERSION}.zip \
   && mv ZAP_D-${ZAP_WEEKLY_VERSION} zap-weekly \
-  && chmod +x /opt/zap-weekly/zap.sh
+  && chmod +x /opt/zap-weekly/zap.sh \
+  && update-alternatives --install /opt/zap-weekly/zap-weekly.jar zap-weekly.jar /opt/zap-weekly/zap-D-${ZAP_WEEKLY_VERSION}.jar 9999
 
 # DAST: zap-cli
 RUN set -x \
