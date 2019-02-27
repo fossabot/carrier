@@ -208,7 +208,7 @@ RUN set -x \
 RUN set -x \
   && cd /opt \
   && mkdir /opt/zap \
-  && wget -qO- https://github.com/zaproxy/zaproxy/releases/download/${ZAP_VERSION}/ZAP_${ZAP_VERSION}_Linux.tar.gz | tar xvz -C /opt/zap --strip-components=1 \
+  && wget -qO- https://github.com/zaproxy/zaproxy/releases/download/${ZAP_STABLE_VERSION}/ZAP_${ZAP_STABLE_VERSION}_Linux.tar.gz | tar xvz -C /opt/zap --strip-components=1 \
   && chmod +x /opt/zap/zap.sh
 
 # DAST: ZAP (weekly)
