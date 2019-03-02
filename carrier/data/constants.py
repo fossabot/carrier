@@ -16,20 +16,9 @@
 #   limitations under the License.
 
 """
-    Main entry point
+    Constants
 """
 
-import logging
 
-
-def main():
-    """ Main """
-    # Setup logging
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format='%(asctime)s - %(levelname)8s - %(message)s',
-        datefmt='%Y.%m.%d %H:%M:%S'
-    )
-    logging.info("Welcome to carrier")
-    #
-    
+DEFAULT_CONFIG_PATH = "/tmp/scan-config.yaml"
+DEFAULT_CONFIG_ENV_KEY = "CARRIER_SCAN_CONFIG"

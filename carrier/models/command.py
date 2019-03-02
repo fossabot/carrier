@@ -16,10 +16,23 @@
 #   limitations under the License.
 
 """
-    Entry point for 'python -m carrier'
+    Command model
 """
 
-import sys
-from carrier.main import main
 
-sys.exit(main())
+class CommandModel(object):
+    """ Command base class """
+
+    @staticmethod
+    def get_name():
+        """ Command name, such as 'run' """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_help():
+        """ Command help message (description) """
+        raise NotImplementedError()
+
+    def execute(self, args):
+        """ Run the command """
+        raise NotImplementedError()

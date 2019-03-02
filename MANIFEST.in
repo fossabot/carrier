@@ -4,4 +4,4 @@ include HACKING.md
 include README.md
 include setup.py
 
-graft carrier
+graft carrier/data

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # coding=utf-8
+# pylint: disable=I0011,C0103
 
 #   Copyright 2019 getcarrier.io
 #
@@ -19,7 +20,27 @@
     Carrier setup script
 """
 
+import pkgutil
+import importlib
+
 from setuptools import setup, find_packages
+
+
+with open("README.md") as f:
+    long_description = f.read()
+
+
+with open("requirements.txt") as f:
+    required_dependencies = f.read().splitlines()
+
+
+console_scripts = ["carrier = carrier.main:main"]
+legacy_scripts = "carrier.commands.legacy"
+legacy_scripts_path = importlib.import_module(legacy_scripts).__path__
+for _, name, _ in pkgutil.iter_modules(legacy_scripts_path):
+    console_scripts.append("{name} = {module}.{name}:main".format(
+        module=legacy_scripts, name=name
+    ))
 
 
 setup(
@@ -30,13 +51,9 @@ setup(
     author_email="artem_rozumenko@epam.com",
     url="https://github.com/carrier-io",
     description="Carrier | Continuous test execution platform",
-    long_description=open("README.md").read(),
+    long_description=long_description,
     packages=find_packages(),
     include_package_data=True,
-    install_requires=[i.strip() for i in open("requirements.txt").readlines()],
-    entry_points={
-        "console_scripts": [
-            "carrier = carrier.carrier:main",
-        ],
-    },
+    install_requires=required_dependencies,
+    entry_points={"console_scripts": console_scripts},
 )
