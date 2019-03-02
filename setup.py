@@ -23,6 +23,7 @@ setup(
     version="0.0.1",
     license="Apache License 2.0",
     author="Carrier team",
+    author_email="artem_rozumenko@epam.com",
     url="https://github.com/carrier-io",
     description="Carrier | Continuous test execution platform",
     long_description=open("README.md").read(),
