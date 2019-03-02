@@ -15,19 +15,10 @@ FROM lifedjik/carrier:base
 LABEL author="artem_rozumenko@epam.com"
 LABEL updated.by="ivan_krakhmaliuk@epam.com"
 
-# Dusty
+# Carrier
 RUN set -x \
-  && mkdir -p /opt/virtualenv/dusty \
-  && virtualenv -p python3.6 /opt/virtualenv/dusty \
-  && /opt/virtualenv/dusty/bin/pip3.6 install git+https://github.com/reportportal/client-Python.git \
-  && /opt/virtualenv/dusty/bin/pip3.6 install git+https://github.com/carrier-io/dusty.git \
-  && /opt/virtualenv/dusty/bin/python3.6 -c 'import pkg_resources; print("\n".join((ep.name for ep in pkg_resources.iter_entry_points("console_scripts") if ep.module_name.startswith("dusty"))))' \
-  | xargs -n 1 bash -c 'update-alternatives --install /usr/bin/$0 $0 /opt/virtualenv/dusty/bin/$0 9999'
-
-# Workspace
-WORKDIR /tmp
-RUN mkdir /tmp/reports
-ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
-ADD w3af_full_audit.w3af /tmp/w3af_full_audit.w3af
-COPY scan-config.yaml /tmp/scan-config.yaml
-ENTRYPOINT ["run"]
+  && mkdir -p /opt/virtualenv/carrier \
+  && virtualenv -p python3.6 /opt/virtualenv/carrier \
+  && /opt/virtualenv/carrier/bin/pip3.6 install git+https://github.com/LifeDJIK/carrier.git@framework \
+  && /opt/virtualenv/carrier/bin/python3.6 -c 'import pkg_resources; print("\n".join((ep.name for ep in pkg_resources.iter_entry_points("console_scripts") if ep.module_name.startswith("carrier"))))' \
+  | xargs -n 1 bash -c 'update-alternatives --install /usr/bin/$0 $0 /opt/virtualenv/carrier/bin/$0 9999'
