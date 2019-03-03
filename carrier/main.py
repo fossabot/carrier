@@ -39,6 +39,11 @@ def main():
         help="enable debug output",
         action="store_const", const=DEBUG, default=INFO
     )
+    parser.add_argument(
+        "--call-from-legacy", dest="call_from_legacy",
+        help=argparse.SUPPRESS,
+        action="store_true", default=False
+    )
     subparsers = parser.add_subparsers(
         dest="command", title="commands",
         help="command to execute, use <command> -h to get command help"

@@ -40,9 +40,9 @@ class Command(CommandModel):
     def __init__(self, argparser):
         """ Initialize command instance, add arguments """
         argparser.add_argument(
-            "-s", "--suite",
-            help="test suite to run",
-            type=str, required=True
+            "-e", "--config-variable",
+            help="name of environment variable with config",
+            type=str, default=constants.DEFAULT_CONFIG_ENV_KEY
         )
         argparser.add_argument(
             "-c", "--config-file",
@@ -50,11 +50,13 @@ class Command(CommandModel):
             type=str, default=constants.DEFAULT_CONFIG_PATH
         )
         argparser.add_argument(
-            "-e", "--config-variable",
-            help="name of environment variable with config",
-            type=str, default=constants.DEFAULT_CONFIG_ENV_KEY
+            "-s", "--suite",
+            help="test suite to run",
+            type=str, required=True
         )
 
     def execute(self, args):
         """ Run the command """
         log.info("Running tests")
+        if args.call_from_legacy:
+            log.info("Oh, legacy...")
